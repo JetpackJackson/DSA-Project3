@@ -1,2 +1,14 @@
 * Project 3
+** Installing/Running
+*** (Linux w/Terminal)
+#+begin_src sh
+  git clone https://github.com/JetpackJackson/DSA-Project3
+  cd DSA-Project3
+  make # to build
+  make run # to run the executable file
+#+end_src
 
+*** Windows w/Clion (TODO)
+#+begin_src sh
+  git clone https://github.com/JetpackJackson/DSA-Project3
+#+end_src

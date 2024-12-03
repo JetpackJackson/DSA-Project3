@@ -1,5 +1,5 @@
-.PHONY: build
-all:
-	g++ -std=c++14 -Werror -Wuninitialized -o build/Project3 src/*.cpp && ./build/Project3
+.PHONY: build run
 build:
-	g++ -std=c++14 -Werror -Wuninitialized -o build/Project3 src/*.cpp && ./build/Project3
+	g++ -std=c++14 -Werror -Wuninitialized -o build/Project3 src/*.cpp
+run:
+	./build/Project3
