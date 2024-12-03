@@ -49,8 +49,12 @@ int main(int argc, char *argv[]) {
       cin >> choice;
       if (choice == "d") {
         // TODO: dijkstra
+        // TODO: random num generator
+
       } else if (choice == "f") {
         // TODO: floyd
+        // TODO: random num generator
+
       } else {
         cout << "Please type 'd' or 'f'." << endl;
       }
