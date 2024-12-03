@@ -12,8 +12,6 @@ include_directories(${CMAKE_SOURCE_DIR}/lib)
 
 file(COPY ${CMAKE_SOURCE_DIR}/src/data.csv DESTINATION ${CMAKE_BINARY_DIR})
 
-# Alternatively, you can use target_include_directories (preferred)
-# target_include_directories(dsa_final PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 # Define the executable
 add_executable(dsa_final src/main.cpp)
