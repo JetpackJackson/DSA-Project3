@@ -1,6 +1,6 @@
 * Project 3
 ** Installing/Running
-*** (Linux w/Terminal)
+*** Linux w/Terminal
 #+begin_src sh
   git clone https://github.com/JetpackJackson/DSA-Project3
   cd DSA-Project3
