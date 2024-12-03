@@ -5,6 +5,8 @@
 #include <vector>
 using namespace std;
 
+// TODO: add algorithms
+
 vector<vector<string>> read_file(ifstream &file,
                                  vector<vector<string>> csvdata) {
   string line;
