@@ -54,12 +54,12 @@ int main(int argc, char *argv[]) {
          << ", Energy: " << csvdata[song2][30] << endl;
 
     // Build the graph based on the dataset (this will calculate weights between songs).
-    //cout << "Building the graph..." << endl;
-    //vector<vector<double>> graph = build_graph(csvdata);
+    cout << "Building the graph..." << endl;
+    vector<vector<double>> graph = build_graph(csvdata);
 
-    // Save the graph to a file so we don't have to rebuild it every time.
-    //save_graph(graph, "graph.dat");
-    //cout << "Graph built successfully!" << endl;
+    //Save the graph to a file so we don't have to rebuild it every time.
+    save_graph(graph, "graph.dat");
+    cout << "Graph built successfully!" << endl;
 
     // Ask the user which algorithm they want to use (Dijkstra or Floyd-Warshall).
     string choice = "";
@@ -70,8 +70,8 @@ int main(int argc, char *argv[]) {
         if (choice == "d") {
             // Run Dijkstra's Algorithm to find the shortest path from one song to the other.
             cout << "Running Dijkstra's Algorithm..." << endl;
-            //vector<double> distances = dijkstra(graph, song1);
-            //cout << "Shortest emotional path from Song 1 to Song 2: " << distances[song2] << endl;
+            vector<double> distances = dijkstra(graph, song1);
+            cout << "Shortest emotional path from Song 1 to Song 2: " << distances[song2] << endl;
 
         } else if (choice == "f") {
             // This is a placeholder for Floyd-Warshall (not implemented yet).
