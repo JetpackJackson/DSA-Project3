@@ -1,11 +1,12 @@
 #include <vector>
 #include <iostream>
 #include <limits>
-#include <thread> // For adding sleep to the loading bar (optional)
+#include <chrono>
 using namespace std;
 
 // Bellman-Ford algorithm for shortest path from a single source
 vector<double> bellman_ford(const vector<vector<double>>& graph, int start) {
+    auto start_time = std::chrono::steady_clock::now();
     int n = graph.size(); // Number of nodes in the graph
     vector<double> distances(n, numeric_limits<double>::infinity()); // Set all distances to infinity
     distances[start] = 0.0; // Set the distance to the source node as 0
@@ -56,5 +57,8 @@ vector<double> bellman_ford(const vector<vector<double>>& graph, int start) {
 
     // Algorithm finished successfully
     cout << "Bellman-Ford completed successfully!" << endl;
+    auto end_time = std::chrono::steady_clock::now(); // Stop the stopwatch
+    auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+    cout << "Bellman-Ford completed in " << elapsed_time.count() << " milliseconds." << endl;
     return distances; // Return the shortest distances from the source node
 }
