@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <thread> // For adding sleep to the progress bar (optional)
+#include <chrono>
 using namespace std;
 
 // Load the graph from a file where it's saved as a binary file.
@@ -43,6 +43,8 @@ vector<vector<double>> load_graph(const string& filename) {
 
 // Implements Dijkstra's Algorithm to find the shortest path from a starting node.
 vector<double> dijkstra(const vector<vector<double>>& graph, int start) {
+    auto start_time = std::chrono::steady_clock::now(); // Start the stopwatch
+
     int n = graph.size(); // Number of nodes in the graph
     vector<double> distances(n, numeric_limits<double>::infinity()); // Initialize all distances to infinity.
     vector<bool> visited(n, false); // Keep track of which nodes have already been processed.
@@ -84,6 +86,9 @@ vector<double> dijkstra(const vector<vector<double>>& graph, int start) {
     }
 
     cout << endl << "Dijkstra's Algorithm completed successfully!" << endl;
+    auto end_time = std::chrono::steady_clock::now(); // Stop the stopwatch
+    auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+    cout << "Dijkstra's Algorithm completed in " << elapsed_time.count() << " milliseconds." << endl;
     return distances; // Return the shortest distances from the starting node.
 }
 
