@@ -33,4 +33,9 @@ std::vector<double> dijkstra(const std::vector<std::vector<double>>& graph, int 
 // Each row in the CSV becomes a vector, with cells as individual strings.
 std::vector<std::vector<std::string>> read_file(std::ifstream& file, std::vector<std::vector<std::string>> csvdata);
 
+// Runs the Bellman-Ford algorithm to find the shortest path from a single source.
+// Detects negative-weight cycles and handles graphs with negative weights.
+std::vector<double> bellman_ford(const std::vector<std::vector<double>>& graph, int start);
+
+
 #endif // ALGORITHM_H
