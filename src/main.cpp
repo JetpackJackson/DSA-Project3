@@ -7,7 +7,7 @@
 #include "Algorithm.h"
 using namespace std;
 
-// This function reads the CSV file and splits its contents into a 2D vector of strings.
+// Function to read the CSV file into a 2D vector of strings.
 // Each row of the CSV becomes a vector of strings (representing the columns).
 vector<vector<string>> read_file(ifstream &file, vector<vector<string>> csvdata) {
     string line;
@@ -28,18 +28,49 @@ vector<vector<string>> read_file(ifstream &file, vector<vector<string>> csvdata)
 }
 
 int main(int argc, char *argv[]) {
-    // Let's start by opening the CSV file.
-    cout << "Looking for file at: data.csv" << endl;
-    ifstream file("data.csv");
-    if (!file.is_open()) {
-        cerr << "Error opening file. Ensure it exists in the correct location." << endl;
-        return 1; // Exit the program if the file isn't found.
+    vector<vector<double>> graph;
+    vector<vector<string>> csvdata;
+    string graphFile = "graph.dat";
+
+    // Check if the graph file exists
+    ifstream graphCheck(graphFile);
+    if (graphCheck.is_open()) {
+        // If the graph file exists, load the graph from the binary file.
+        cout << "Graph file found. Loading graph from " << graphFile << "..." << endl;
+        graph = load_graph(graphFile);
+        graphCheck.close();
+
+        // Load the CSV data for song details (to print names, artists, etc.).
+        ifstream file("data.csv");
+        if (!file.is_open()) {
+            cerr << "Error opening CSV file. Ensure it exists in the correct location." << endl;
+            return 1; // Exit the program if the file isn't found.
+        }
+        csvdata = read_file(file, {});
+    } else {
+        // If the graph file does not exist, build the graph from the CSV file.
+        cout << "Graph file not found. Building the graph from the dataset..." << endl;
+
+        // Let's start by opening the CSV file.
+        cout << "Looking for file at: data.csv" << endl;
+        ifstream file("data.csv");
+        if (!file.is_open()) {
+            cerr << "Error opening file. Ensure it exists in the correct location." << endl;
+            return 1; // Exit the program if the file isn't found.
+        }
+
+        // Read the file and store its contents in a 2D vector.
+        csvdata = read_file(file, {});
+
+        // Build the graph based on the dataset (this will calculate weights between songs).
+        graph = build_graph(csvdata);
+
+        // Save the graph to a file so we don't have to rebuild it every time.
+        save_graph(graph, graphFile);
+        cout << "Graph built and saved successfully!" << endl;
     }
 
-    // Read the file and store its contents in a 2D vector.
-    vector<vector<string>> csvdata = read_file(file, {});
-
-    // Randomly pick two songs from the dataset.
+    // Randomly pick two songs from the dataset for testing.
     srand(time(0)); // Seed the random number generator with the current time.
     int song1 = rand() % csvdata.size();
     int song2 = rand() % csvdata.size();
@@ -53,18 +84,10 @@ int main(int argc, char *argv[]) {
     cout << "  Sadness: " << csvdata[song2][28] << ", Danceability: " << csvdata[song2][29]
          << ", Energy: " << csvdata[song2][30] << endl;
 
-    // Build the graph based on the dataset (this will calculate weights between songs).
-    cout << "Building the graph..." << endl;
-    vector<vector<double>> graph = build_graph(csvdata);
-
-    //Save the graph to a file so we don't have to rebuild it every time.
-    save_graph(graph, "graph.dat");
-    cout << "Graph built successfully!" << endl;
-
-    // Ask the user which algorithm they want to use (Dijkstra or Floyd-Warshall).
+    // Loop to allow the user to select an algorithm repeatedly
     string choice = "";
-    while (choice != "d" && choice != "f") {
-        cout << "Which algorithm to use? [type 'd' for Dijkstra's or 'f' for Floyd-Warshall] \n";
+    while (true) {
+        cout << "\nWhich algorithm would you like to use? [type 'd' for Dijkstra's, 'f' for Bellman-Ford, or 'q' to quit]:\n";
         cin >> choice;
 
         if (choice == "d") {
@@ -74,13 +97,21 @@ int main(int argc, char *argv[]) {
             cout << "Shortest emotional path from Song 1 to Song 2: " << distances[song2] << endl;
 
         } else if (choice == "f") {
-            // This is a placeholder for Floyd-Warshall (not implemented yet).
-            cout << "Running Floyd-Warshall Algorithm..." << endl;
-            cout << "Floyd-Warshall is not implemented yet!" << endl;
-
+            // Run Bellman-Ford Algorithm
+            cout << "Running Bellman-Ford Algorithm..." << endl;
+            vector<double> distances = bellman_ford(graph, song1);
+            if (!distances.empty()) {
+                cout << "Shortest emotional path from Song 1 to Song 2: " << distances[song2] << endl;
+            } else {
+                cout << "Bellman-Ford failed due to a negative-weight cycle." << endl;
+            }
+        } else if (choice == "q") {
+            // Exit the loop and program
+            cout << "Exiting program. Goodbye!" << endl;
+            break;
         } else {
-            // If the user enters anything other than 'd' or 'f', prompt them again.
-            cout << "Please type 'd' or 'f'." << endl;
+            // Invalid input, prompt again
+            cout << "Invalid choice. Please type 'd', 'f', or 'q'." << endl;
         }
     }
 
