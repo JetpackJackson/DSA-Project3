@@ -9,9 +9,9 @@
 #+end_src
 
 *** Windows w/Clion
-**** 1. Create an empty project in CLion
-**** 2. Create a Git Repository for the project
-**** 3. Follow these steps below
+*** 1. Create an empty project in CLion
+*** 2. Create a Git Repository for the project
+*** 3. Follow these steps below
 #+begin_src sh
   git pull https://github.com/JetpackJackson/DSA-Project3
 #+end_src
