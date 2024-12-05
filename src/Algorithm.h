@@ -37,5 +37,10 @@ std::vector<std::vector<std::string>> read_file(std::ifstream& file, std::vector
 // Detects negative-weight cycles and handles graphs with negative weights.
 std::vector<double> bellman_ford(const std::vector<std::vector<double>>& graph, int start);
 
+// Search for song given the CSV data in vector<vector<string>>> format
+int search_string (const std::string& song_name, const std::vector<std::vector<std::string>>& csvdata);
+
+std::string process_string(const std::string& song_name);
+
 
 #endif // ALGORITHM_H

@@ -92,3 +92,21 @@ void save_graph(const vector<vector<double>>& graph, const string& filename) {
     outfile.close(); // Always close the file.
     cout << "Graph saved to " << filename << " successfully." << endl;
 }
+
+// returns an integer corresponding to index in 2-D array if song is found in csvdata, returns -1 if not found
+int search_string (const std::string& song_name, const std::vector<std::vector<std::string>>& csvdata) {
+    for (int i = 0; i < csvdata.size(); i++) {
+        if (csvdata[i][2] == song_name) return i;
+    }
+    return -1;
+}
+
+string process_string(const std::string& song) {
+    string new_song;
+    for (auto& c: song) {
+        if (isalpha(c)) new_song += tolower(c);
+        else new_song += c;
+    }
+    return new_song;
+}
+

@@ -7,6 +7,7 @@
 #include "Algorithm.h"
 using namespace std;
 
+
 // Function to read the CSV file into a 2D vector of strings.
 // Each row of the CSV becomes a vector of strings (representing the columns).
 vector<vector<string>> read_file(ifstream &file, vector<vector<string>> csvdata) {
@@ -72,8 +73,47 @@ int main(int argc, char *argv[]) {
 
     // Randomly pick two songs from the dataset for testing.
     srand(time(0)); // Seed the random number generator with the current time.
-    int song1 = rand() % csvdata.size();
-    int song2 = rand() % csvdata.size();
+
+    string test_type;
+    cout << "Would you like to test two random songs [y/n]: " << endl;
+    cin >>  test_type;
+
+    int song1;
+    int song2;
+    // Random Input for testing
+    if (test_type == "y") {
+        song1 = rand() % csvdata.size();
+        song2 = rand() % csvdata.size();
+
+    }
+    // CLI for getting song names by track name
+    else {
+        // iterates until user finishes input or decides to quit
+        while (true) {
+            string name1;
+            cout << "Type the first song you want to compare with: " << endl;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, name1);
+            name1 = process_string(name1);
+            song1 = search_string(name1, csvdata);
+            if (song1 == -1) {
+                cout << "Could not find " << name1 << " in the database, please try a different song" << endl;
+                continue;
+            } else break;
+        }
+        while (true) {
+            string name2;
+            cout << "Type the second song you want to compare with: " << endl;
+            getline(cin, name2);
+            name2 = process_string(name2);
+            song2 = search_string(name2, csvdata);
+            if (song2 == -1) {
+                cout << "Could not find " << name2 << " in the database, please try a different song" << endl;
+            } else if (song2 == song1) {
+                cout << "Duplicate entries are not allowed, please try a different song" << endl;
+            } else break;
+        }
+    }
 
     // Print the details of the two randomly chosen songs.
     cout << "Song 1: " << csvdata[song1][2] << " by " << csvdata[song1][1] << endl;
@@ -83,6 +123,7 @@ int main(int argc, char *argv[]) {
     cout << "Song 2: " << csvdata[song2][2] << " by " << csvdata[song2][1] << endl;
     cout << "  Sadness: " << csvdata[song2][28] << ", Danceability: " << csvdata[song2][29]
          << ", Energy: " << csvdata[song2][30] << endl;
+
 
     // Loop to allow the user to select an algorithm repeatedly
     string choice = "";

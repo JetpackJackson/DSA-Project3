@@ -14,7 +14,11 @@ file(COPY ${CMAKE_SOURCE_DIR}/src/data.csv DESTINATION ${CMAKE_BINARY_DIR})
 
 
 # Define the executable
-add_executable(dsa_final src/main.cpp)
+add_executable(dsa_final
+        src/main.cpp
+        "src/Dijkstra's Algoritm.cpp"
+        "src/Build Graph.cpp"
+        "src/Bellman Ford Algorithm.cpp")
 
 # Link ws2_32 for HTTP functionality on Windows
 target_link_libraries(dsa_final PRIVATE ws2_32)
