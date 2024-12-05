@@ -74,12 +74,14 @@ int main(int argc, char *argv[]) {
     // Randomly pick two songs from the dataset for testing.
     srand(time(0)); // Seed the random number generator with the current time.
 
+    int song1;
+    int song2;
+
     string test_type;
     cout << "Would you like to test two random songs [y/n]: " << endl;
     cin >>  test_type;
 
-    int song1;
-    int song2;
+
     // Random Input for testing
     if (test_type == "y") {
         song1 = rand() % csvdata.size();
@@ -97,7 +99,7 @@ int main(int argc, char *argv[]) {
             name1 = process_string(name1);
             song1 = search_string(name1, csvdata);
             if (song1 == -1) {
-                cout << "Could not find " << name1 << " in the database, please try a different song" << endl;
+                cout << "Could not find '" << name1 << "' in the database, please try a different song" << endl;
                 continue;
             } else break;
         }

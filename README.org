@@ -15,3 +15,7 @@
 #+begin_src sh
   git pull https://github.com/JetpackJackson/DSA-Project3
 #+end_src
+
+*** 4. Download this file into your cmake-debug folder
+https://drive.google.com/file/d/1XrCSDu9zvF_NMJc1-_Pq3CMXCnY_U-TE/view?usp=sharing
+
